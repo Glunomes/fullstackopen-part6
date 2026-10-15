@@ -1,11 +1,12 @@
-import { useAnecdotes, useAnecdotesControls } from "../store"
+import { useAnecdotes, useAnecdotesControls, useFilter } from "../store"
 
 const AnecdoteList = () => {
-
-  const anecdotes = useAnecdotes()
+  const filter = useFilter()
+  const anecdotes  = useAnecdotes()
   const { addVote } = useAnecdotesControls()
-  
-  const sortedAnecdotes = anecdotes.toSorted((a, b) => b.votes - a.votes)
+
+  const filteredAnecdotes = anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase()))
+  const sortedAnecdotes = filteredAnecdotes.toSorted((a, b) => b.votes - a.votes)
   const anecdoteList = sortedAnecdotes.map((anecdote) => (
       <div key={anecdote.id}>
         <div>{anecdote.content}</div>
