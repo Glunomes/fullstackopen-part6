@@ -1,11 +1,9 @@
 import { useAnecdotes } from "./store"
+import { useAnecdotesControls } from "./store"
 
 const App = () => {
   const anecdotes = useAnecdotes()
-
-  const vote = (id) => {
-    console.log("vote", id)
-  }
+  const { addVote } = useAnecdotesControls()
 
   return (
     <div>
@@ -15,7 +13,7 @@ const App = () => {
           <div>{anecdote.content}</div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+            <button onClick={() => addVote(anecdote.id)}>vote</button>
           </div>
         </div>
       ))}
