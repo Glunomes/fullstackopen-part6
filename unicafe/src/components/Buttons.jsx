@@ -1,10 +1,14 @@
+import { useCounterControls } from "./store"
+
 const Buttons = () => {
+  const {goodIncrement, badIncrement, neutralIncrement} = useCounterControls()
+
   return (
     <div>
       <h2>give feedback</h2>
-      <button>good</button>
-      <button>neutral</button>
-      <button>bad</button>
+      <button onClick={goodIncrement}>good</button>
+      <button onClick={neutralIncrement}>neutral</button>
+      <button onClick={badIncrement}>bad</button>
     </div>
   )
 }
