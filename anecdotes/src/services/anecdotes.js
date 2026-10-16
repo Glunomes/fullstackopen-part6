@@ -28,4 +28,21 @@ const addAnecdote = async (content) => {
   return data
 }
 
-export default { getAll, addAnecdote }
+const updateVote = async (id, note) => {
+  const options = {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(note),
+  } 
+
+  const response = await fetch(`${baseUrl}/${id}`, options)
+
+  if(!response.ok) {
+    throw new Error ('Failed to create anecdote')
+  }
+
+  const data = await response.json()
+  return data
+}
+
+export default { getAll, addAnecdote, updateVote }
