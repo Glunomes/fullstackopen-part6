@@ -45,4 +45,12 @@ const updateVote = async (id, note) => {
   return data
 }
 
-export default { getAll, addAnecdote, updateVote }
+const deleteAnecdote = async(id) => {
+  const response = await fetch(`${baseUrl}/${id}`, { method: 'DELETE' })
+
+  if(!response.ok) {
+    throw new Error ('Something went wrong')
+  }
+}
+
+export default { getAll, addAnecdote, updateVote, deleteAnecdote }

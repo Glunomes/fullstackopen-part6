@@ -3,12 +3,17 @@ import { useAnecdotes, useAnecdotesControls, useFilter, useNotificationsControl 
 const AnecdoteList = () => {
   const filter = useFilter()
   const anecdotes  = useAnecdotes()
-  const { addVote } = useAnecdotesControls()
+  const { addVote, deleteAnecdote } = useAnecdotesControls()
   const setNotification = useNotificationsControl()
 
   const handleVote = (anecdote) => {
     addVote(anecdote.id)
     setNotification(`You voted '${anecdote.content}'`)
+  }
+
+  const handleDelete = (anecdote) => {
+    deleteAnecdote(anecdote.id)
+    setNotification(`${anecdote} has been deleted`)
   }
 
   const filteredAnecdotes = anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase()))
@@ -19,6 +24,7 @@ const AnecdoteList = () => {
           <div>
             has {anecdote.votes}
             <button onClick={() => handleVote(anecdote)}>vote</button>
+            {anecdote.votes === 0 && <button onClick={() => handleDelete(anecdote)}>delete</button>}
           </div>
       </div>
     ))
