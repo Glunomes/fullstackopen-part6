@@ -11,4 +11,21 @@ const getAll = async () => {
   return data
 }
 
-export default { getAll }
+const addAnecdote = async (content) => {
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content, votes: 0 }),
+  }
+
+  const response = await fetch(baseUrl, options)
+
+  if(!response.ok) {
+    throw new Error ('Failed to create anecdote')
+  }
+
+  const data = await response.json()
+  return data
+}
+
+export default { getAll, addAnecdote }
