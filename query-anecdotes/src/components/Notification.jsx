@@ -1,3 +1,6 @@
+import { useEffect } from "react"
+import useNotification from "../hooks/useNotification"
+
 const Notification = () => {
   const style = {
     border: "solid",
@@ -6,9 +9,25 @@ const Notification = () => {
     marginBottom: 5,
   }
 
-  if (true) return null
+  const {notification, setNotification} = useNotification()
 
-  return <div data-testid="notification" style={style}></div>
+  useEffect(() => {
+    if(!notification) return
+
+    const timer = setTimeout(() => { 
+      setNotification(null) 
+    }, 5000)
+
+    return () => clearTimeout(timer)
+  }, [notification, setNotification])
+
+  if (!notification) return null
+
+  return (
+  <div data-testid="notification" style={style}>
+    {notification}
+  </div>
+  )
 }
 
 export default Notification
